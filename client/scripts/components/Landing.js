@@ -65,13 +65,21 @@ module.exports = React.createClass({
     }
   },
   handleLoginResponse: function(response) {
-    var user = response.user;
-    actions.isAuthenticated(user._id, response.token);
+    if (response.user && response.token) {
+      this.setState({ user: response.user });
+      this.setState({ token: response.token });
+      actions.setUser(this.state.user);        
+      var url = '/todos/' + this.state.user._id + '/' + this.state.token;
+      this.props.history.pushState(null, url);
+    } else {
+      console.log("bad login", response);
+    }
   },
   handleSignupResponse: function(response) {
     if (response.user && response.token) {
       this.setState({ user: response.user });
       this.setState({ token: response.token });
+      actions.setUser(this.state.user);        
       var url = '/todos/' + this.state.user._id + '/' + this.state.token;
       this.props.history.pushState(null, url);
     } else {

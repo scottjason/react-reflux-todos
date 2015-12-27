@@ -6,12 +6,16 @@ module.exports = Reflux.createStore({
   state: {},
   init: function() {
     this.listenTo(actions.setUser, this.setUser);
-    this.listenTo(actions.getItems, this.getItems);
+    this.listenTo(actions.getTodos, this.getTodos);
+    this.listenTo(actions.logout, this.logout);
   },
   setUser: function(user) {
     this.state.user = user;
   },
-  getItems: function() {
-    this.trigger('itemsReceived', this.state.user.items);
+  getTodos: function() {
+    this.trigger('todosReceived', this.state.user.todos);
+  },
+  logout: function() {
+    this.trigger('redirectOnLogout', {});
   }
 });

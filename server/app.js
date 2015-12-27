@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(express.static(path.join(config.root, 'dist')));
+app.use(express.static(path.join(config.root, 'client/dist')));
 
 require('./routes/index')(app);
 

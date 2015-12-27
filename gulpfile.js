@@ -1,16 +1,14 @@
 var gulp = require('gulp');
 var stream = require('vinyl-source-stream');
-var reactify = require('reactify');
 var flatten = require('gulp-flatten');
+var reactify = require('reactify');
 var nodemon = require('gulp-nodemon');
 var browserify = require('browserify');
 
 var scriptsDir = './client/scripts';
 var stylesDir = './client/styles';
-var targetDir = './dist/';
+var targetDir = './client/dist/';
 var entryPoint = 'main.js';
-
-var notify = false;
 
 gulp.task('buildScript', function(cb) {
   return browserify({ entries: [scriptsDir + '/' + entryPoint], debug: true })
@@ -34,7 +32,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('server', function() {
-  return nodemon({ script: 'server/app.js', ignore: ['dist/**/*'] }).on('start', function() {
+  return nodemon({ script: 'server/app.js', ignore: ['client/**/*'] }).on('start', function() {
     console.log('Gulp Nodemon Started.');
   });
 });
