@@ -1,1 +1,1 @@
-# React / Reflux Todos With Authentication
+# React / Reflux: Todos With Authentication

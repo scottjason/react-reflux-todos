@@ -1,5 +1,5 @@
 {
-  "name": "react-reflux-todos-with-authentication",
+  "name": "react-reflux-todos",
   "description": "react with reflux, todos with jwt based authentication and mongo",
   "main": "",
   "authors": [
@@ -15,7 +15,7 @@
     "node",
     "express"
   ],
-  "homepage": "https://github.com/scottjason/react-reflux-todos-with-authentication",
+  "homepage": "https://github.com/scottjason/react-reflux-todos",
   "moduleType": [],
   "ignore": [
     "**/.*",

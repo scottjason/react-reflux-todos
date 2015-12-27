@@ -1,5 +1,5 @@
 {
-  "name": "react-reflux-todos-with-authentication",
+  "name": "react-reflux-todos",
   "version": "1.0.0",
   "description": "react with reflux, todos with jwt based authentication and mongo",
   "main": "../server/app.js",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scottjason/react-reflux-todos-with-authentication.git"
+    "url": "git+https://github.com/scottjason/react-reflux-todos.git"
   },
   "keywords": [
     "react",
@@ -35,7 +35,7 @@
   "author": "Scott Jason",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/scottjason/react-reflux-todos-with-authentication/issues"
+    "url": "https://github.com/scottjason/react-reflux-todos/issues"
   },
-  "homepage": "https://github.com/scottjason/react-reflux-todos-with-authentication#readme"
+  "homepage": "https://github.com/scottjason/react-reflux-todos#readme"
 }
