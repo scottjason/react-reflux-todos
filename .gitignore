@@ -1,5 +1,6 @@
 node_modules/
 client/bower_components
+dist/
 env.js
 *.log
 .DS_STORE

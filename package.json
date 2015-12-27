@@ -12,10 +12,12 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "lodash": "^3.10.1",
     "mongoose": "^4.3.4",
     "morgan": "~1.6.1",
     "nodemon": "^1.8.1",
     "react": "^0.14.3",
+    "react-router": "^1.0.3",
     "reflux": "^0.3.0",
     "serve-favicon": "~2.3.0"
   },
@@ -37,5 +39,17 @@
   "bugs": {
     "url": "https://github.com/scottjason/react-reflux-todos/issues"
   },
-  "homepage": "https://github.com/scottjason/react-reflux-todos#readme"
+  "homepage": "https://github.com/scottjason/react-reflux-todos#readme",
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "gulp": "^3.9.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-nodemon": "^2.0.4",
+    "gulp-react": "^3.1.0",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-uglify": "^1.5.1",
+    "gulp-util": "^3.0.7",
+    "vinyl-source-stream": "^1.1.0"
+  }
 }
