@@ -4,17 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var database = require('./config/database');
 var config = require('./config');
 
-var app = express();
+database.connect();
 
-app.set('port', process.env.PORT || 3000);
+var app = express();
 
 var env = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
 app.set('env', env);
 
 var url = (app.get('env') === 'production') ? '' : 'http://localhost:3000'
-app.set('url', url);
 
 app.set('views', path.join(config.root, 'server/views'));
 app.engine('html', require('ejs').renderFile);
@@ -53,6 +53,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(app.get('port'), function() {
-  console.log('Express server started in ' + app.get('env') + ' mode, ' + app.get('url'));
+app.listen(config.server.port, function() {
+  console.log('Express server started in ' + app.get('env') + ' mode, ' + url);
 });

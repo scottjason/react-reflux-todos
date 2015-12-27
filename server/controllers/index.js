@@ -1,3 +1,5 @@
+var User = require('../models/user');
+
 exports.renderIndex = function(req, res, next) {
   res.render('index');
 };
