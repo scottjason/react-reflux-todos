@@ -9,32 +9,63 @@ var browserify = require('browserify');
 var runSequence = require('gulp-run-sequence');
 
 /**
-	Main Task Sequences
-*/
-
-gulp.task('default', function(cb) {
-  runSequence('transform', 'bundle', cb);
-});
-
-/**
   Paths
 */
 
 var paths = {
-  all: ['client/scripts/*.js', 'client/scripts/lib/*.js', 'client/styles/*.css', 'client/styles/lib/*.css'],
-  scripts: ['client/script/*.js'],
-  destSource: 'dist/scripts',
-  dest: 'dist'
+  root: 'dist',
+  scripts: 'client/script/*.js',
+  styles: 'client/styles/*.css',
+  assets: 'client/assets/**/*',
+  bower: 'client/bower-components/**/*',
+  destAssets: 'dist/assets',
+  destBower: 'dist/bower-components',
+  destStyles: 'dist/styles',
+  destScripts: 'dist/scripts'
 };
 
 /**
-  Transform JSX to JS Bunde
+	Main Task Sequences
+*/
+
+gulp.task('default', function(cb) {
+  runSequence('clean', 'copyAssets', 'copyStyles', 'transform', 'bundle', cb);
+});
+
+
+/**
+  Clean
+*/
+
+gulp.task('clean', function() {
+  return gulp.src('dist', {
+    read: false
+  }).pipe(clean());
+});
+
+/**
+  Copy Assets & Styles
+*/
+
+gulp.task('copyAssets', function() {
+  gulp.src(paths.assets)
+    .pipe(gulp.dest(paths.destAssets));
+});
+
+
+gulp.task('copyStyles', function() {
+  gulp.src(paths.styles)
+    .pipe(gulp.dest(paths.destStyles));
+});
+
+/**
+  Transform JSX to JS
 */
 
 gulp.task('transform', function() {
   gulp.src(paths.scripts)
     .pipe(react())
-    .pipe(gulp.dest(paths.destSource));
+    .pipe(gulp.dest(paths.destScripts));
 });
 
 /**
