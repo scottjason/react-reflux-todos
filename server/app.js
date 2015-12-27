@@ -10,7 +10,10 @@ var app = express();
 
 app.set('port', process.env.PORT || 3000);
 
-var url = (process.env.NODE_ENV === 'production') ? '' : 'http://localhost:3000'
+var env = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
+app.set('env', env);
+
+var url = (app.get('env') === 'production') ? '' : 'http://localhost:3000'
 app.set('url', url);
 
 app.set('views', path.join(config.root, 'server/views'));
@@ -21,7 +24,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(config.root, 'client')));
+
+app.use(express.static(path.join(config.root, 'dist')));
 
 require('./routes/index')(app);
 
@@ -50,5 +54,5 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(app.get('port'), function() {
-  console.log('Express server started: ' + app.get('url'));
+  console.log('Express server started in ' + app.get('env') + ' mode, ' + app.get('url'));
 });

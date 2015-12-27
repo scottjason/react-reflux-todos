@@ -1,12 +1,12 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var clean = require('gulp-clean');
-var react = require('gulp-react');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
 var source = require('vinyl-source-stream');
+var nodemon = require('gulp-nodemon');
 var browserify = require('browserify');
-var runSequence = require('gulp-run-sequence');
+var watch = require('gulp-watch');
+var watchify = require('watchify');
+var reactify = require('reactify');
 
 /**
   Paths
@@ -14,7 +14,8 @@ var runSequence = require('gulp-run-sequence');
 
 var paths = {
   root: 'dist',
-  scripts: 'client/script/*.js',
+  main: './client/scripts/main.js',
+  scripts: 'client/scripts/*.js',
   styles: 'client/styles/*.css',
   assets: 'client/assets/**/*',
   bower: 'client/bower-components/**/*',
@@ -25,12 +26,10 @@ var paths = {
 };
 
 /**
-	Main Task Sequences
+  Main Task Sequences
 */
 
-gulp.task('default', function(cb) {
-  runSequence('clean', 'copyAssets', 'copyStyles', 'transform', 'bundle', cb);
-});
+gulp.task('default', ['clean', 'copyAssets', 'copyStyles', 'browserify', 'start', 'watchStyles']);
 
 
 /**
@@ -38,46 +37,70 @@ gulp.task('default', function(cb) {
 */
 
 gulp.task('clean', function() {
-  return gulp.src('dist', {
-    read: false
-  }).pipe(clean());
+  return gulp.src('dist', { read: false }).pipe(clean({ force: true }));
 });
 
 /**
   Copy Assets & Styles
 */
 
-gulp.task('copyAssets', function() {
+gulp.task('copyAssets', ['clean'], function() {
   gulp.src(paths.assets)
     .pipe(gulp.dest(paths.destAssets));
 });
 
 
-gulp.task('copyStyles', function() {
+gulp.task('copyStyles', ['clean'], function() {
   gulp.src(paths.styles)
     .pipe(gulp.dest(paths.destStyles));
 });
 
 /**
-  Transform JSX to JS
+  Watch Styles
 */
 
-gulp.task('transform', function() {
-  gulp.src(paths.scripts)
-    .pipe(react())
-    .pipe(gulp.dest(paths.destScripts));
+gulp.task('watchStyles', ['start'], function() {
+  return gulp.src(paths.styles)
+    .pipe(watch(paths.styles))
+    .pipe(gulp.dest(paths.destStyles));
+});
+
+
+/**
+  Browserify, Transform JSX
+*/
+
+gulp.task('browserify', ['clean'], function() {
+  var bundler = browserify({
+    entries: [paths.main],
+    transform: [reactify],
+    debug: true,
+    cache: {},
+    packageCache: {},
+    fullPaths: true
+  });
+  var watcher = watchify(bundler);
+  return watcher
+    .on('update', function() {
+      var startedAt = Date.now();
+      gutil.log('Gulp watcher updating ...');
+      watcher.bundle()
+        .pipe(source('main.js'))
+        .pipe(gulp.dest('./dist/scripts/'));
+      gutil.log('Gulp watcher updated!', (Date.now() - startedAt) + 'ms');
+    })
+    .bundle()
+    .pipe(source('main.js'))
+    .pipe(gulp.dest('./dist/scripts/'));
 });
 
 /**
-  Browserify Bundle
+  Nodemon
 */
 
-gulp.task('bundle', function() {
-  return browserify('./client/scripts/main.js')
-    .bundle()
-    .on('error', function(err) {
-      gutil.log('Gulp Log, browserify error', err);
-    })
-    .pipe(source('main.js'))
-    .pipe(gulp.dest('./dist/scripts/'));
+gulp.task('start', ['browserify'], function() {
+  nodemon({ script: 'server/app.js', ignore: ['dist/**/*'] })
+    .on('restart', function() {
+      gutil.log('Gulp Nodemon Restarted')
+    });
 });
