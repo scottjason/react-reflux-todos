@@ -39,5 +39,6 @@ gulp.task('server', function() {
   });
 });
 
+
 gulp.task('default', ['build', 'server', 'watch']);
 gulp.task('build', ['copyStyles', 'buildScript']);
