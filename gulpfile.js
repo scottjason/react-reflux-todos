@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var stream = require('vinyl-source-stream');
 var reactify = require('reactify');
-var notify = require('gulp-notify');
 var flatten = require('gulp-flatten');
 var nodemon = require('gulp-nodemon');
 var browserify = require('browserify');
@@ -11,19 +10,22 @@ var stylesDir = './client/styles';
 var targetDir = './dist/';
 var entryPoint = 'main.js';
 
-gulp.task('buildScript', function() {
+var notify = false;
+
+gulp.task('buildScript', function(cb) {
   return browserify({ entries: [scriptsDir + '/' + entryPoint], debug: true })
     .transform(reactify)
     .bundle()
     .pipe(stream(entryPoint))
     .pipe(gulp.dest(targetDir))
-    .pipe(notify('Bundling done.'));
+    cb();
 });
 
-gulp.task('copyStyles', function() {
+gulp.task('copyStyles', function(cb) {
  return gulp.src(stylesDir + '*/**.css')
     .pipe(flatten())
     .pipe(gulp.dest(targetDir))
+    cb();    
 });
 
 gulp.task('watch', function() {
@@ -37,5 +39,5 @@ gulp.task('server', function() {
   });
 });
 
-gulp.task('default', ['server', 'watch']);
+gulp.task('default', ['build', 'server', 'watch']);
 gulp.task('build', ['copyStyles', 'buildScript']);

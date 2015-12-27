@@ -1,8 +1,39 @@
+html,
 body {
-  padding: 50px;
-  background-color: black;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
 }
 
-a {
-  color: #00B7FF;
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  background-image: url('https://s3-us-west-2.amazonaws.com/react-todos/blackboard-edited.jpg');
+  background-size: cover;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Input Placeholder */
+::-webkit-input-placeholder {
+  color: rgba(9225, 225, 225, .9);
+}
+:-moz-placeholder {
+  color: rgba(9225, 225, 225, .9);
+}
+::-moz-placeholder {
+  color: rgba(9225, 225, 225, .9);
+}
+
+:-ms-input-placeholder {
+  color: rgba(9225, 225, 225, .9);
 }
