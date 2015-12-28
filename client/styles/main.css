@@ -25,15 +25,15 @@ body {
 
 /* Input Placeholder */
 ::-webkit-input-placeholder {
-  color: rgba(9225, 225, 225, .9);
+  color: rgba(225, 225, 225, .9);
 }
 :-moz-placeholder {
-  color: rgba(9225, 225, 225, .9);
+  color: rgba(225, 225, 225, .9);
 }
 ::-moz-placeholder {
-  color: rgba(9225, 225, 225, .9);
+  color: rgba(225, 225, 225, .9);
 }
 
 :-ms-input-placeholder {
-  color: rgba(9225, 225, 225, .9);
+  color: rgba(225, 225, 225, .9);
 }

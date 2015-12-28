@@ -6,7 +6,7 @@
 git clone git@github.com:scottjason/react-reflux-todos.git && cd react-reflux-todos && touch env.js
 ```
 
-In the env.js file located in the root directory, set the environmental variable for mongo:
+In the env.js file located in the root directory, copy and paste the below & set the environmental variable for mongo:
 
 ```javascript
 module.exports = {

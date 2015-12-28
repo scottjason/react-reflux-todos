@@ -9,6 +9,7 @@ module.exports = Reflux.createStore({
     this.listenTo(actions.getLoginForm, this.getLoginForm);
     this.listenTo(actions.getSignupForm, this.getSignupForm);
     this.listenTo(actions.signup, this.signup);
+    this.listenTo(actions.login, this.login);
   },
   isAuthenticated: function(userId, token) {
     var url = '/isAuthenticated/' + userId + '/' + token;
@@ -48,6 +49,11 @@ module.exports = Reflux.createStore({
     opts.isPasswordValid = (opts.password.length) ? this.isPasswordValid(opts.password) : false;
     this.trigger('handleSignup', opts);
   },
+  login: function(opts) {
+    Api.post(opts, function(err, response){
+      this.trigger('handleLoginResponse', response);
+    }.bind(this));
+  },  
   signup: function(opts) {
     Api.post(opts, function(err, response){
       this.trigger('handleSignupResponse', response);

@@ -20,6 +20,7 @@ module.exports = React.createClass({
 	 return { isAuthenticated: false, isToggled: false };
   },  
   componentDidMount: function() {
+    this.setState({ isToggled: false });
     this.listenTo(LandingStore, this.handleStateChange);
     var _this = this;    
     setTimeout(function(){
@@ -41,7 +42,14 @@ module.exports = React.createClass({
     this.setState({ isToggled: !this.state.isToggled });
   },
   handleLogin: function(data) {
-    console.log('handleLogin', data);
+    var isValid = data.isEmailValid && data.isPasswordValid;
+    if (isValid) {
+      console.log('set state to logging in');
+      data.url = '/login';
+      actions.login(data);
+    } else {
+      console.log("set state to invalid form");
+    }
   },
   handleSignup: function(data) {
     var isValid = data.isEmailValid && data.isPasswordValid;
@@ -72,7 +80,7 @@ module.exports = React.createClass({
       var url = '/todos/' + this.state.user._id + '/' + this.state.token;
       this.props.history.pushState(null, url);
     } else {
-      console.log("bad login", response);
+      console.log("bad login", response.message || response);
     }
   },
   handleSignupResponse: function(response) {
@@ -83,7 +91,7 @@ module.exports = React.createClass({
       var url = '/todos/' + this.state.user._id + '/' + this.state.token;
       this.props.history.pushState(null, url);
     } else {
-      console.log("bad signup", response);
+      console.log("bad signup", response.message || response);      
     }
   },
   render: function() {
