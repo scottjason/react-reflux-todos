@@ -6,8 +6,8 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div styles={styles.container}>
-        <p styles={styles.title}>React Todos</p>        
-        <p styles={styles.subtitle}>React + Reflux, Todos and Authentication</p>        
+        <p styles={styles.title}>Todos</p>        
+        <p styles={styles.subtitle}>React + Reflux + JWT Auth</p>        
         <div styles={styles.divider}></div> 	                	
       </div>
     )
