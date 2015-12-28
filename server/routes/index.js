@@ -1,15 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var indexCtrl = require('../controllers/index');
+var userCtrl = require('../controllers/user');
 var todoCtrl = require('../controllers/todo');
 
 module.exports = function(app) {
 
   router.get('/', indexCtrl.render);  
-  router.get('/isAuthenticated/:userId/:token', indexCtrl.isAuthenticated);  
+  router.get('/isAuthenticated/:userId/:token', userCtrl.isAuthenticated);  
 
-  router.post('/signup', indexCtrl.signup);
-  router.post('/login', indexCtrl.login);
+  router.post('/signup', userCtrl.signup);
+  router.post('/login', userCtrl.login);
 
   router.post('/create', todoCtrl.isAuthenticated, todoCtrl.create);
   router.post('/update', todoCtrl.isAuthenticated, todoCtrl.update);
