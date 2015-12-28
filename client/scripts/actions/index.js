@@ -3,7 +3,7 @@ var Reflux = require('reflux');
 module.exports = Reflux.createActions([
   'isAuthenticated',
   'setUser',
-  'getItems',
+  'getTodos',
   'toggleLanding',	
   'getLoginForm',
   'getSignupForm',

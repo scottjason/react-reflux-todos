@@ -13,7 +13,7 @@ var userSchema = new mongoose.Schema({
   password: {
     type: String
   },
-  items: {
+  todos: {
     default: [],
     type: Array
   },

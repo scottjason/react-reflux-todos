@@ -49,7 +49,6 @@ module.exports = Reflux.createStore({
     this.trigger('handleSignup', opts);
   },
   signup: function(opts) {
-    console.log('landing store opts before api call', opts);
     Api.post(opts, function(err, response){
       this.trigger('handleSignupResponse', response);
     }.bind(this));

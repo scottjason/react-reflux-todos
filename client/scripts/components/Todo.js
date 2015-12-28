@@ -2,20 +2,23 @@
 
 var Reflux = require('reflux');
 var StyleSheet = require('react-style');
-var actions = require('../actions');
-var Header = require('../components/Header.js');
 var Navigation = require('react-router').Navigation;
 
+var Header = require('../components/Header.js');
 var TodoStore = require('../stores/TodoStore.js');
+var Navbar = require('../components/Navbar.js');
+
+var _ = require('lodash');
+var actions = require('../actions');
 
 module.exports = React.createClass({
   mixins: [Navigation, Reflux.ListenerMixin],  
   getInitialState: function() {
-    return { items: [], userId: this.props.params.userId, token: this.props.params.token };
+    return { userId: this.props.params.userId, token: this.props.params.token };
   },  
   componentDidMount: function() {
     this.listenTo(TodoStore, this.handleStateChange);
-    actions.getItems();
+    actions.getTodos();
   },  
   handleStateChange: function(func, data) {
     var cb = this[func];
@@ -23,20 +26,30 @@ module.exports = React.createClass({
       cb(data);
     }
   },
-  itemsReceived: function(items) {
-    this.setState({ items: items });
-    console.log("items receieved", this.state.items);
+  todosReceived: function(todos) {
+    this.setState({ todos: todos });
+  },
+  redirectOnLogout: function() {
+    localStorage.clear();
+    window.location.href = (window.location.href.indexOf("localhost") > -1) ? 'http://localhost:3000/' : 'https://react-reflux-todos.herokuapp.com/';
   },
   render: function() {
     return ( 
-    <div styles={styles.container}>
-      <Header />
+    <div styles={styles.wrapper}>
+      <Navbar />
+      <div styles={styles.container}>
+        <Header />
+      </div>
     </div>
     )
   }
 });
 
 var styles = StyleSheet.create({
+  wrapper: {
+    width: '100%',
+    height: '100%'
+  },
   container: {
     position: 'absolute',
     left: 0,

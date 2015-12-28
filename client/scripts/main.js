@@ -4,8 +4,8 @@ var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var createBrowserHistory = require('history/lib/createBrowserHistory');
 
-var Landing = require('./components/Landing.js');
-var Todo = require('./components/Todo.js');
+var Landing = require('./components/Landing');
+var Todo = require('./components/Todo');
 
 ReactDOM.render((
   <Router history={createBrowserHistory()}>
