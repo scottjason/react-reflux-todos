@@ -35,7 +35,7 @@ var styles = StyleSheet.create({
     borderBottom: '1px solid rgba(225, 225, 225, .6)',
     padding: 7,
     outline: 0,
-    color: 'rgba(95, 61, 63, 1)',
+    color: 'rgba(225, 225, 225, 1)',
     fontSize: 13
   },
   firstInput: {
